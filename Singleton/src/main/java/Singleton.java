@@ -1,10 +1,11 @@
 import java.io.Serializable;
+import java.time.LocalDateTime;
 
 public class Singleton implements Serializable {
 
     private static Singleton instance;
     private String text;
-    private int number;
+    private LocalDateTime localDateTime = LocalDateTime.now();
 
     private Singleton() {
     }
@@ -21,10 +22,15 @@ public class Singleton implements Serializable {
     }
 
     protected Object readResolve() {
-        Singleton singleton = getInstance();
-        singleton.text = text;
-        singleton.number = number;
-        return singleton;
+        if (localDateTime.isBefore(getInstance().getLocalDateTime())) {
+            if (!localDateTime.isEqual(getInstance().getLocalDateTime())){
+                Singleton singleton = getInstance();
+                singleton.text = text;
+                singleton.localDateTime = localDateTime;
+                return singleton;
+            }
+        }
+        return Singleton.getInstance();
     }
 
     public String getText() {
@@ -35,11 +41,11 @@ public class Singleton implements Serializable {
         this.text = text;
     }
 
-    public int getNumber() {
-        return number;
+    public LocalDateTime getLocalDateTime() {
+        return localDateTime;
     }
 
-    public void setNumber(int number) {
-        this.number = number;
+    public void setLocalDateTime(LocalDateTime localDateTime) {
+        this.localDateTime = localDateTime;
     }
 }

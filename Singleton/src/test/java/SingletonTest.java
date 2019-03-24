@@ -13,6 +13,7 @@ import java.io.ObjectInputStream;
 import java.io.ObjectOutput;
 import java.io.ObjectOutputStream;
 import java.lang.reflect.Field;
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
@@ -32,11 +33,13 @@ class SingletonTest {
     }
 
     @AfterEach
-    void tearDown() throws NoSuchFieldException, IllegalAccessException {
+    void tearDown() throws NoSuchFieldException, IllegalAccessException, IOException {
         System.out.println("Tearing down instance");
         Field instance = Singleton.class.getDeclaredField("instance");
         instance.setAccessible(true);
         instance.set(null, null);
+        new File(filename).delete();
+        serializeObject(Singleton.getInstance(), filename);
     }
 
     @AfterAll
@@ -102,14 +105,15 @@ class SingletonTest {
         serializeObject(instanceOne, filename);
 
         instanceOne.setText(instanceTwoText);
-        System.out.println(instanceOne.getText() + " " + instanceOne.hashCode());
+        instanceOne.setLocalDateTime(LocalDateTime.now().plusMinutes(2L));
+        System.out.println("Instance: " + instanceOne.getText() + " (hashCode: " + instanceOne.hashCode() + ")" + "timeStamp: " + instanceOne.getLocalDateTime());
 
         // Deserialize from file to object
         Singleton instanceTwo = deserializeObject(filename);
 
         //then
-        System.out.println(instanceOne.getText() + " " + instanceOne.hashCode());
-        System.out.println(instanceTwo.getText() + " " + instanceTwo.hashCode());
+        System.out.println("Instance: " + instanceOne.getText() + " (hashCode: " + instanceOne.hashCode() + ")" + "timeStamp: " + instanceOne.getLocalDateTime());
+        System.out.println("Instance: " + instanceTwo.getText() + " (hashCode: " + instanceTwo.hashCode() + ")" + "timeStamp: " + instanceTwo.getLocalDateTime());
 
         System.out.println("Checking text in both objects");
         assertEquals(instanceOne.getText(), instanceTwo.getText());
@@ -119,15 +123,25 @@ class SingletonTest {
         assertEquals(instanceOne.getText(), instanceOneText);
     }
 
-    @DisplayName("SingletonSerializationWithOutObject")
+    @DisplayName("shouldNotChangeSingletonInstanceAfterDeserialization")
     @Test
-    void SingletonSerializationWithOutObject() throws IOException, ClassNotFoundException {
+    void shouldNotChangeSingletonInstanceAfterDeserialization() throws IOException, ClassNotFoundException {
         //given
-        Singleton instanceOne = deserializeObject(filename);
-        Singleton instanceTwo = Singleton.getInstance();
+        String text = "Instance One";
+        Singleton instanceOne = Singleton.getInstance();
+        System.out.println("Instance: " + instanceOne.getText() + " (hashCode: " + instanceOne.hashCode() + ")" + "timeStamp: " + instanceOne.getLocalDateTime());
+
+        //when
+        instanceOne.setText(text);
+        System.out.println("Instance: " + instanceOne.getText() + " (hashCode: " + instanceOne.hashCode() + ")" + "timeStamp: " + instanceOne.getLocalDateTime());
+        Singleton instanceTwo = deserializeObject(filename);
 
         //then
+        System.out.println("Instance: " + instanceOne.getText() + " (hashCode: " + instanceOne.hashCode() + ")" + "timeStamp: " + instanceOne.getLocalDateTime());
+        System.out.println("Instance: " + instanceTwo.getText() + " (hashCode: " + instanceTwo.hashCode() + ")" + "timeStamp: " + instanceOne.getLocalDateTime());
         assertEquals(instanceOne.hashCode(), instanceTwo.hashCode());
+        assertEquals(instanceOne.getText(), text);
+
     }
 
     private static void serializeObject(Singleton instance, String filename) throws IOException {

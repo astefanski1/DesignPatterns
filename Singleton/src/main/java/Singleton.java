@@ -4,6 +4,7 @@ public class Singleton implements Serializable {
 
     private static Singleton instance;
     private String text;
+    private int number;
 
     private Singleton() {
     }
@@ -20,7 +21,10 @@ public class Singleton implements Serializable {
     }
 
     protected Object readResolve() {
-        return instance;
+        Singleton singleton = getInstance();
+        singleton.text = text;
+        singleton.number = number;
+        return singleton;
     }
 
     public String getText() {
@@ -29,5 +33,13 @@ public class Singleton implements Serializable {
 
     public void setText(String text) {
         this.text = text;
+    }
+
+    public int getNumber() {
+        return number;
+    }
+
+    public void setNumber(int number) {
+        this.number = number;
     }
 }

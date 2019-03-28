@@ -1,10 +1,11 @@
 package SimpleFactory;
 
-import SimpleFactory.ComputerBrands.AppleComputer;
-import SimpleFactory.ComputerBrands.AsusComputer;
-import SimpleFactory.ComputerBrands.ComputerBrands;
-import SimpleFactory.ComputerBrands.DellComputer;
-import SimpleFactory.ComputerBrands.LenovoComputer;
+import Computers.Apple.AppleOffice;
+import Computers.Asus.AsusOffice;
+import Computers.Computer;
+import Computers.Dell.DellOffice;
+import Computers.Lenovo.LenovoOffice;
+import Computers.Utils.ComputerBrands;
 
 public class SimpleComputerFactory {
 
@@ -25,13 +26,13 @@ public class SimpleComputerFactory {
         Computer computer = null;
 
         if (brand.equals(ComputerBrands.APPLE)) {
-            computer = new AppleComputer();
+            computer = new AppleOffice();
         } else if (brand.equals(ComputerBrands.DELL)) {
-            computer = new DellComputer();
+            computer = new DellOffice();
         } else if (brand.equals(ComputerBrands.LENOVO)) {
-            computer = new LenovoComputer();
+            computer = new LenovoOffice();
         } else if (brand.equals(ComputerBrands.ASUS)) {
-            computer = new AsusComputer();
+            computer = new AsusOffice();
         }
         return computer;
     }

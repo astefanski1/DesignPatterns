@@ -1,5 +1,7 @@
 package SimpleFactory;
 
+import Computers.Computer;
+
 public class ComputerStore {
     private SimpleComputerFactory simpleComputerFactory;
 
@@ -11,6 +13,10 @@ public class ComputerStore {
         Computer computer;
 
         computer = simpleComputerFactory.createComputer(brand);
+
+        computer.orderAccepted();
+        computer.assembly();
+        computer.send();
 
         return computer;
     }

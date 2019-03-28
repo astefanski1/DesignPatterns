@@ -1,5 +1,5 @@
-import SimpleFactory.Computer;
-import SimpleFactory.ComputerBrands.ComputerBrands;
+import Computers.Computer;
+import Computers.Utils.ComputerBrands;
 import SimpleFactory.ComputerStore;
 import SimpleFactory.SimpleComputerFactory;
 import org.junit.jupiter.api.BeforeAll;

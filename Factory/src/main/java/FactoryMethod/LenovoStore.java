@@ -9,6 +9,22 @@ import Computers.Utils.ComputerType;
 
 public class LenovoStore extends ComputerStore {
 
+    private static LenovoStore lenovoStore;
+
+    private LenovoStore() {
+    }
+
+    public static LenovoStore getInstance() {
+        if (lenovoStore == null) {
+            synchronized (LenovoStore.class) {
+                if (lenovoStore == null) {
+                    lenovoStore = new LenovoStore();
+                }
+            }
+        }
+        return lenovoStore;
+    }
+
     Computer createComputer(Enum<ComputerType> computerType) {
         if (computerType.equals(ComputerType.GAMING))
             return new LenovoGaming();

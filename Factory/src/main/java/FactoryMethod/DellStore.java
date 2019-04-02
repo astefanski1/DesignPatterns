@@ -9,6 +9,22 @@ import Computers.Utils.ComputerType;
 
 public class DellStore extends ComputerStore {
 
+    private static DellStore dellStore;
+
+    private DellStore() {
+    }
+
+    public static DellStore getInstance() {
+        if (dellStore == null) {
+            synchronized (DellStore.class) {
+                if (dellStore == null) {
+                    dellStore = new DellStore();
+                }
+            }
+        }
+        return dellStore;
+    }
+
     Computer createComputer(Enum<ComputerType> computerType) {
         if (computerType.equals(ComputerType.OFFICE))
             return new DellOffice();

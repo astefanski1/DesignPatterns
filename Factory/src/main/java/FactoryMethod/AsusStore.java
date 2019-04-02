@@ -9,6 +9,22 @@ import Computers.Utils.ComputerType;
 
 public class AsusStore extends ComputerStore {
 
+    private static AsusStore asusStore;
+
+    private AsusStore() {
+    }
+
+    public static AsusStore getInstance() {
+        if (asusStore == null) {
+            synchronized (AsusStore.class) {
+                if (asusStore == null) {
+                    asusStore = new AsusStore();
+                }
+            }
+        }
+        return asusStore;
+    }
+
     Computer createComputer(Enum<ComputerType> computerType) {
         if (computerType.equals(ComputerType.GAMING))
             return new AsusGaming();

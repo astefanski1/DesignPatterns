@@ -7,10 +7,10 @@ import Computers.Utils.ComputerType;
 public class DependentComputerStore {
 
     private static DependentComputerStore dependentComputerStore;
-    private AppleStore appleStore = new AppleStore();
-    private AsusStore asusStore = new AsusStore();
-    private DellStore dellStore = new DellStore();
-    private LenovoStore lenovoStore = new LenovoStore();
+    private AppleStore appleStore = AppleStore.getInstance();
+    private AsusStore asusStore = AsusStore.getInstance();
+    private DellStore dellStore = DellStore.getInstance();
+    private LenovoStore lenovoStore = LenovoStore.getInstance();
 
     public static DependentComputerStore getInstance() {
         if (dependentComputerStore == null) {

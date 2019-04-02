@@ -9,6 +9,22 @@ import Computers.Utils.ComputerType;
 
 public class AppleStore extends ComputerStore {
 
+    private static AppleStore appleStore;
+
+    private AppleStore() {
+    }
+
+    public static AppleStore getInstance() {
+        if (appleStore == null) {
+            synchronized (AppleStore.class) {
+                if (appleStore == null) {
+                    appleStore = new AppleStore();
+                }
+            }
+        }
+        return appleStore;
+    }
+
     Computer createComputer(Enum<ComputerType> computerType) {
         if (computerType.equals(ComputerType.GAMING))
             return new AppleGaming();

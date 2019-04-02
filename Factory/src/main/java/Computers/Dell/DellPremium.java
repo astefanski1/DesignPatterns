@@ -1,8 +1,8 @@
 package Computers.Dell;
 
 import Computers.Computer;
-import Computers.Utils.ComputerBrands;
-import Computers.Utils.ComputerTypes;
+import Computers.Utils.ComputerBrand;
+import Computers.Utils.ComputerType;
 
 public class DellPremium extends Computer {
 
@@ -11,8 +11,8 @@ public class DellPremium extends Computer {
         price = 450.0;
         os = "Windows 10";
         weight = 2.5;
-        brand = ComputerBrands.DELL;
-        computerType = ComputerTypes.PREMIUM;
+        brand = ComputerBrand.DELL;
+        computerType = ComputerType.PREMIUM;
         components.add("Procesor: i7 4770");
         components.add("RAM: 16GB");
         components.add("GPU: Geforce GTX 1080");

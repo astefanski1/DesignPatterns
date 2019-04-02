@@ -1,8 +1,8 @@
 package Computers.Asus;
 
 import Computers.Computer;
-import Computers.Utils.ComputerBrands;
-import Computers.Utils.ComputerTypes;
+import Computers.Utils.ComputerBrand;
+import Computers.Utils.ComputerType;
 
 public class AsusPremium extends Computer {
 
@@ -11,8 +11,8 @@ public class AsusPremium extends Computer {
         price = 150.0;
         os = "Windows 10";
         weight = 3;
-        brand = ComputerBrands.ASUS;
-        computerType = ComputerTypes.PREMIUM;
+        brand = ComputerBrand.ASUS;
+        computerType = ComputerType.PREMIUM;
         components.add("Procesor: i3 4670");
         components.add("RAM: 4GB");
         components.add("GPU: Geforce GTX 1050");

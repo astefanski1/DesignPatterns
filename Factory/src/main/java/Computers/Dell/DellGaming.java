@@ -1,8 +1,8 @@
 package Computers.Dell;
 
 import Computers.Computer;
-import Computers.Utils.ComputerBrands;
-import Computers.Utils.ComputerTypes;
+import Computers.Utils.ComputerBrand;
+import Computers.Utils.ComputerType;
 
 public class DellGaming extends Computer {
 
@@ -11,8 +11,8 @@ public class DellGaming extends Computer {
         price = 800.0;
         os = "Windows 10";
         weight = 3.0;
-        brand = ComputerBrands.DELL;
-        computerType = ComputerTypes.GAMING;
+        brand = ComputerBrand.DELL;
+        computerType = ComputerType.GAMING;
         components.add("Procesor: i9 4770k");
         components.add("RAM: 64GB");
         components.add("GPU: Geforce GTX 1080ti");

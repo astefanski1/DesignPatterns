@@ -20,6 +20,10 @@ public abstract class Computer {
         return brand;
     }
 
+    public Enum getComputerType() {
+        return computerType;
+    }
+
     public void orderAccepted() {
         System.out.println("Order accepted for " + name + " computer");
     }

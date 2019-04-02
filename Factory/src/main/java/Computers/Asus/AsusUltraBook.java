@@ -1,8 +1,8 @@
 package Computers.Asus;
 
 import Computers.Computer;
-import Computers.Utils.ComputerBrands;
-import Computers.Utils.ComputerTypes;
+import Computers.Utils.ComputerBrand;
+import Computers.Utils.ComputerType;
 
 public class AsusUltraBook extends Computer {
 
@@ -11,8 +11,8 @@ public class AsusUltraBook extends Computer {
         price = 200.0;
         os = "Windows 10";
         weight = 2.5;
-        brand = ComputerBrands.ASUS;
-        computerType = ComputerTypes.ULTRABOOK;
+        brand = ComputerBrand.ASUS;
+        computerType = ComputerType.ULTRABOOK;
         components.add("Procesor: i5 4670");
         components.add("RAM: 8GB");
         components.add("GPU: Geforce GTX 1060");

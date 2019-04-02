@@ -1,8 +1,8 @@
 package Computers.Dell;
 
 import Computers.Computer;
-import Computers.Utils.ComputerBrands;
-import Computers.Utils.ComputerTypes;
+import Computers.Utils.ComputerBrand;
+import Computers.Utils.ComputerType;
 
 public class DellUltrabook extends Computer {
 
@@ -11,8 +11,8 @@ public class DellUltrabook extends Computer {
         price = 400.0;
         os = "Windows 10";
         weight = 4;
-        brand = ComputerBrands.DELL;
-        computerType = ComputerTypes.ULTRABOOK;
+        brand = ComputerBrand.DELL;
+        computerType = ComputerType.ULTRABOOK;
         components.add("Procesor: i5 4770");
         components.add("RAM: 8GB");
         components.add("GPU: Geforce GTX 1060");

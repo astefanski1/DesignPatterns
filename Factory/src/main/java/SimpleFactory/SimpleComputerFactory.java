@@ -5,7 +5,7 @@ import Computers.Asus.AsusOffice;
 import Computers.Computer;
 import Computers.Dell.DellOffice;
 import Computers.Lenovo.LenovoOffice;
-import Computers.Utils.ComputerBrands;
+import Computers.Utils.ComputerBrand;
 
 public class SimpleComputerFactory {
 
@@ -25,13 +25,13 @@ public class SimpleComputerFactory {
     public Computer createComputer(Enum brand) {
         Computer computer = null;
 
-        if (brand.equals(ComputerBrands.APPLE)) {
+        if (brand.equals(ComputerBrand.APPLE)) {
             computer = new AppleOffice();
-        } else if (brand.equals(ComputerBrands.DELL)) {
+        } else if (brand.equals(ComputerBrand.DELL)) {
             computer = new DellOffice();
-        } else if (brand.equals(ComputerBrands.LENOVO)) {
+        } else if (brand.equals(ComputerBrand.LENOVO)) {
             computer = new LenovoOffice();
-        } else if (brand.equals(ComputerBrands.ASUS)) {
+        } else if (brand.equals(ComputerBrand.ASUS)) {
             computer = new AsusOffice();
         }
         return computer;

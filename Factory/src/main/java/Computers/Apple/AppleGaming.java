@@ -1,8 +1,8 @@
 package Computers.Apple;
 
 import Computers.Computer;
-import Computers.Utils.ComputerBrands;
-import Computers.Utils.ComputerTypes;
+import Computers.Utils.ComputerBrand;
+import Computers.Utils.ComputerType;
 
 public class AppleGaming extends Computer {
 
@@ -11,8 +11,8 @@ public class AppleGaming extends Computer {
         price = 760.0;
         os = "Mac OS";
         weight = 1.3;
-        brand = ComputerBrands.APPLE;
-        computerType = ComputerTypes.GAMING;
+        brand = ComputerBrand.APPLE;
+        computerType = ComputerType.GAMING;
         components.add("Procesor: i7 4990k");
         components.add("RAM: 64GB");
         components.add("GPU: Geforce GTX 1080");

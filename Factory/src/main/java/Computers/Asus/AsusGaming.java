@@ -1,8 +1,8 @@
 package Computers.Asus;
 
 import Computers.Computer;
-import Computers.Utils.ComputerBrands;
-import Computers.Utils.ComputerTypes;
+import Computers.Utils.ComputerBrand;
+import Computers.Utils.ComputerType;
 
 public class AsusGaming extends Computer {
 
@@ -11,8 +11,8 @@ public class AsusGaming extends Computer {
         price = 400.0;
         os = "Windows 10";
         weight = 3;
-        brand = ComputerBrands.ASUS;
-        computerType = ComputerTypes.GAMING;
+        brand = ComputerBrand.ASUS;
+        computerType = ComputerType.GAMING;
         components.add("Procesor: i7 4770K");
         components.add("RAM: 16GB");
         components.add("GPU: Geforce GTX 1080");

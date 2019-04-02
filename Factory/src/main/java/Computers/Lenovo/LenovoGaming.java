@@ -1,8 +1,8 @@
 package Computers.Lenovo;
 
 import Computers.Computer;
-import Computers.Utils.ComputerBrands;
-import Computers.Utils.ComputerTypes;
+import Computers.Utils.ComputerBrand;
+import Computers.Utils.ComputerType;
 
 public class LenovoGaming extends Computer {
 
@@ -11,8 +11,8 @@ public class LenovoGaming extends Computer {
         price = 800.0;
         os = "Windows 10";
         weight = 2.0;
-        brand = ComputerBrands.LENOVO;
-        computerType = ComputerTypes.GAMING;
+        brand = ComputerBrand.LENOVO;
+        computerType = ComputerType.GAMING;
         components.add("Procesor: i7 4970k");
         components.add("RAM: 16GB");
         components.add("GPU: Geforce GTX 1080 ti");

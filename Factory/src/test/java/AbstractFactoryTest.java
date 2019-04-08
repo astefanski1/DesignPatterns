@@ -4,9 +4,13 @@ import AbstractFactory.store.DellComputerStore;
 import AbstractFactory.store.LenovoComputerStore;
 import Computers.Utils.ComputerBrand;
 import Computers.Utils.ComputerType;
+import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
+import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.concurrent.TimeUnit;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
@@ -17,6 +21,12 @@ public class AbstractFactoryTest {
     private DellComputerStore dellComputerStore = new DellComputerStore();
     private LenovoComputerStore lenovoComputerStore = new LenovoComputerStore();
     private Long testDuration, startTime, endTime;
+
+    @BeforeAll
+    static void setUpClass() throws InterruptedException, IOException {
+        Thread.sleep(5000);
+
+    }
 
     @BeforeEach
     void setUpTest() {
@@ -55,12 +65,33 @@ public class AbstractFactoryTest {
     void shouldReturnLenovoUltrabookComputer() {
         //when
         Computer computer = lenovoComputerStore.orderComputer(ComputerType.ULTRABOOK);
+        Computer computer2 = lenovoComputerStore.orderComputer(ComputerType.ULTRABOOK);
 
         //then
         assertEquals(computer.getBrand(), ComputerBrand.LENOVO);
         assertEquals(computer.getComputerType(), ComputerType.ULTRABOOK);
 
+        System.out.println(computer.hashCode());
+
         getTestResults();
+    }
+
+    @Test
+    void factoryTime() throws IOException, InterruptedException {
+        //given
+        Thread.sleep(5000);
+        Computer computer;
+        List<Computer> computers = new ArrayList<>();
+
+        //when
+        for (int i = 0; i < 1000; i++) {
+            computer = appleComputerStore.orderComputer(ComputerType.ULTRABOOK);
+
+            computers.add(computer);
+        }
+
+        Long time = getTestDuration();
+        System.out.println("\nTest time duration: " + time/1000 + " (micro seconds)");
     }
 
     private Long getTestDuration() {

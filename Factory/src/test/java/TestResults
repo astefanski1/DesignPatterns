@@ -1,0 +1,27 @@
+1000 Object Creating Time
+
+//Abstract Factory
+
+Time: 3.63 ms
+Memory: 39 216 KB
+
+//factoryClassRegistrationReflection
+
+Time: 0.400 ms
+Memory: 33 630 KB
+
+
+//factoryClassRegistration
+
+Time: 9.25 ms
+Memory: 36 056
+
+//FactoryMethod
+
+Time: 0.537 ms
+Memory: 51 096 KB
+
+//SimpleFactory
+
+Time: 2.97 ms
+Memory: 37 744 KB

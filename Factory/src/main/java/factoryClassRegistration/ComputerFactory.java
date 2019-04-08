@@ -4,11 +4,13 @@ package factoryClassRegistration;
 import Computers.Utils.ComputerType;
 
 import java.util.HashMap;
+import java.util.Map;
+import java.util.function.Supplier;
 
 public class ComputerFactory {
 
     private static ComputerFactory computerFactory;
-    private HashMap registeredComputers = new HashMap();
+    private Map<ComputerType, Supplier<? extends Computer>> registeredComputers = new HashMap<>();
 
     private ComputerFactory() {
     }
@@ -24,15 +26,12 @@ public class ComputerFactory {
         return computerFactory;
     }
 
-    public void registerComputer(ComputerType computerType, Class computerClass) {
-        registeredComputers.put(computerType, computerClass);
-    }
-
-    public void registerComputer(ComputerType computerType, Computer computer) {
+    public void registerComputer(ComputerType computerType, Supplier<? extends Computer> computer) {
         registeredComputers.put(computerType, computer);
     }
 
     public Computer createComputer(ComputerType computerType) {
-        return ((Computer) registeredComputers.get(computerType)).createComputer();
+        Supplier<? extends Computer> computer = registeredComputers.get(computerType);
+        return computer != null ? computer.get() : null;
     }
 }

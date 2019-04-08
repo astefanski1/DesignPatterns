@@ -1,17 +1,19 @@
-import Computers.Apple.AppleGaming;
 import Computers.Apple.ApplePremium;
-import Computers.Computer;
-import Computers.Dell.DellUltrabook;
 import Computers.Lenovo.LenovoGaming;
 import Computers.Lenovo.LenovoUltrabook;
 import Computers.Utils.ComputerBrand;
 import Computers.Utils.ComputerType;
+import factoryClassRegistration.Computer;
 import factoryClassRegistration.ComputerFactory;
-import factoryClassRegistration.NewComputer;
+import factoryClassRegistration.GamingComputer;
+import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
+import java.io.IOException;
 import java.lang.reflect.InvocationTargetException;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.concurrent.TimeUnit;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
@@ -20,6 +22,12 @@ public class factoryClassRegistrationTest {
 
     private ComputerFactory computerFactory = ComputerFactory.getInstance();
     private Long testDuration, startTime, endTime;
+
+    @BeforeAll
+    static void setUpClass() throws InterruptedException, IOException {
+        Thread.sleep(5000);
+
+    }
 
     @BeforeEach
     void setUpTest() {
@@ -33,40 +41,33 @@ public class factoryClassRegistrationTest {
     @Test
     void shouldReturnPremiumComputer() throws NoSuchMethodException, InstantiationException, IllegalAccessException, InvocationTargetException {
         //when
-        computerFactory.registerComputer(ComputerType.PREMIUM, ApplePremium.class);
-        NewComputer computer = (NewComputer) computerFactory.createComputer(ComputerType.PREMIUM);
+        computerFactory.registerComputer(ComputerType.PREMIUM, GamingComputer::new);
+        Computer computer = computerFactory.createComputer(ComputerType.PREMIUM);
 
         //then
-        assertEquals(computer.getComputerType(), ComputerType.PREMIUM);
+        assertEquals(computer.getComputerType(), ComputerType.GAMING);
         assertEquals(computer.getBrand(), ComputerBrand.APPLE);
 
         getTestResults();
     }
 
     @Test
-    void shouldReturnGamingComputer() throws NoSuchMethodException, InstantiationException, IllegalAccessException, InvocationTargetException {
+    void factoryTime() throws IOException, InterruptedException {
+        //given
+        Thread.sleep(5000);
+        Computer computer;
+        List<Computer> computers = new ArrayList<>();
+
         //when
-        computerFactory.registerComputer(ComputerType.GAMING, LenovoGaming.class);
-        NewComputer computer = (NewComputer) computerFactory.createComputer(ComputerType.GAMING);
+        for (int i = 0; i < 1000; i++) {
+            computerFactory.registerComputer(ComputerType.PREMIUM, GamingComputer::new);
+            computer = computerFactory.createComputer(ComputerType.PREMIUM);
 
-        //then
-        assertEquals(computer.getComputerType(), ComputerType.GAMING);
-        assertEquals(computer.getBrand(), ComputerBrand.LENOVO);
+            computers.add(computer);
+        }
 
-        getTestResults();
-    }
-
-    @Test
-    void shouldReturnUltrabookComputer() throws NoSuchMethodException, InstantiationException, IllegalAccessException, InvocationTargetException {
-        //when
-        computerFactory.registerComputer(ComputerType.ULTRABOOK, LenovoUltrabook.class);
-        NewComputer computer = (NewComputer) computerFactory.createComputer(ComputerType.ULTRABOOK);
-
-        //then
-        assertEquals(computer.getComputerType(), ComputerType.ULTRABOOK);
-        assertEquals(computer.getBrand(), ComputerBrand.LENOVO);
-
-        getTestResults();
+        Long time = getTestDuration();
+        System.out.println("\nTest time duration: " + time/1000 + " (micro seconds)");
     }
 
     private Long getTestDuration() {

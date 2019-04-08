@@ -3,9 +3,8 @@ package factoryClassRegistration;
 import Computers.Utils.ComputerBrand;
 import Computers.Utils.ComputerType;
 
-public class NewComputer extends Computer {
-
-    public NewComputer() {
+public class GamingComputer extends Computer {
+    public GamingComputer() {
         name = "MackBook Pro";
         price = 760.0;
         os = "Mac OS";
@@ -19,7 +18,8 @@ public class NewComputer extends Computer {
         components.add("Storage: SSD 2TB");
     }
 
-    public NewComputer createComputer() {
-        return new NewComputer();
+    @Override
+    public Computer createComputer() {
+        return new GamingComputer();
     }
 }

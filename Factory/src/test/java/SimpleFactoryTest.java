@@ -1,13 +1,18 @@
 import Computers.Computer;
 import Computers.Utils.ComputerBrand;
 import Computers.ComputerStore;
+import Computers.Utils.ComputerType;
 import SimpleFactory.SimpleComputerFactory;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
+import java.io.IOException;
 import java.lang.instrument.Instrumentation;
+import java.lang.reflect.InvocationTargetException;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.concurrent.TimeUnit;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
@@ -18,9 +23,10 @@ class SimpleFactoryTest {
     private Long testDuration, startTime, endTime;
 
     @BeforeAll
-    static void setUpClass() {
+    static void setUpClass() throws InterruptedException {
         SimpleComputerFactory factory = SimpleComputerFactory.getInstance();
         computerStore = new ComputerStore(factory);
+        Thread.sleep(5000);
     }
 
     @BeforeEach
@@ -92,6 +98,24 @@ class SimpleFactoryTest {
         assertEquals(computer.getBrand(), ComputerBrand.DELL);
 
         getTestResults(computer);
+    }
+
+    @Test
+    void factoryTime() throws IOException, InterruptedException, NoSuchMethodException, InstantiationException, IllegalAccessException, InvocationTargetException {
+        //given
+        Thread.sleep(5000);
+        Computer computer;
+        List<Computer> computers = new ArrayList<>();
+
+        //when
+        for (int i = 0; i < 1000; i++) {
+            computer = computerStore.orderComputer(ComputerBrand.DELL);
+
+            computers.add(computer);
+        }
+
+        Long time = getTestDuration();
+        System.out.println("\nTest time duration: " + time/1000 + " (micro seconds)");
     }
 
     private Long getTestDuration() {

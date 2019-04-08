@@ -2,7 +2,7 @@ package factoryClassRegistration;
 
 import java.util.ArrayList;
 
-abstract class Computer {
+public abstract class Computer {
 
     public abstract Computer createComputer();
 

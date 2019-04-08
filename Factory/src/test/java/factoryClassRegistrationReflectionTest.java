@@ -6,10 +6,14 @@ import Computers.Utils.ComputerBrand;
 import Computers.Utils.ComputerType;
 import factoryClassRegistrationReflection.ComputerFactory;
 import factoryClassRegistrationReflection.ComputerShop;
+import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
+import java.io.IOException;
 import java.lang.reflect.InvocationTargetException;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.concurrent.TimeUnit;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
@@ -19,6 +23,12 @@ public class factoryClassRegistrationReflectionTest {
     private ComputerFactory computerFactory = ComputerFactory.getInstance();
     private ComputerShop computerShop = new ComputerShop(computerFactory);
     private Long testDuration, startTime, endTime;
+
+    @BeforeAll
+    static void setUpClass() throws InterruptedException, IOException {
+        Thread.sleep(5000);
+
+    }
 
     @BeforeEach
     void setUpTest() {
@@ -67,6 +77,26 @@ public class factoryClassRegistrationReflectionTest {
 
         getTestResults();
     }
+
+    @Test
+    void factoryTime() throws IOException, InterruptedException, NoSuchMethodException, InstantiationException, IllegalAccessException, InvocationTargetException {
+        //given
+        Thread.sleep(5000);
+        Computer computer;
+        List<Computer> computers = new ArrayList<>();
+
+        //when
+        for (int i = 0; i < 1000; i++) {
+            computerFactory.registerComputer(ComputerType.ULTRABOOK, DellUltrabook.class);
+            computer = computerShop.makeComputer(ComputerType.ULTRABOOK);
+
+            computers.add(computer);
+        }
+
+        Long time = getTestDuration();
+        System.out.println("\nTest time duration: " + time/1000 + " (micro seconds)");
+    }
+
 
     private Long getTestDuration() {
         endTime = System.nanoTime();

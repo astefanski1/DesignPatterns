@@ -8,10 +8,9 @@ import simpleBuilder.model.Computer;
 import simpleBuilder.store.ComputerStore;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNotSame;
 
 public class SimpleFluentBuilderTest {
-
-    private ComputerStore computerStore = new ComputerStore();
 
     @BeforeEach
     void setUpTest() {
@@ -23,10 +22,12 @@ public class SimpleFluentBuilderTest {
 
     @Test
     void shouldReturnPremiumComputer() {
+        //given
+        Computer premiumComputer;
+
         //when
-        computerStore.setComputerBuilder(new PremiumComputerBuilder());
-        computerStore.makeComputer();
-        Computer premiumComputer = computerStore.getComputer();
+        ComputerStore computerStore = new ComputerStore();
+        premiumComputer = computerStore.buildComputer(new PremiumComputerBuilder());
 
         //then
         assertEquals(premiumComputer.getBrand(), ComputerBrand.APPLE);
@@ -37,11 +38,33 @@ public class SimpleFluentBuilderTest {
     }
 
     @Test
-    void shouldReturnStandardComputer() {
+    void shouldReturnTwoPremiumComputers() {
+        //given
+        Computer premiumComputer, premiumComputer2;
+
         //when
-        computerStore.setComputerBuilder(new StandardComputerBuilder());
-        computerStore.makeComputer();
-        Computer standardComputer = computerStore.getComputer();
+        ComputerStore computerStore = new ComputerStore();
+        premiumComputer = computerStore.buildComputer(new PremiumComputerBuilder());
+        premiumComputer2 = computerStore.buildComputer(new PremiumComputerBuilder());
+
+        //then
+        assertEquals(premiumComputer.getBrand(), ComputerBrand.APPLE);
+        assertEquals(premiumComputer.getComputerType(), ComputerType.PREMIUM);
+        assertEquals(premiumComputer.getPrice(), 300.0);
+        assertNotSame(premiumComputer.hashCode(), 123123);
+
+        System.out.println("Computer 1: " + premiumComputer.hashCode());
+        System.out.println("Computer 2: " + premiumComputer2.hashCode());
+    }
+
+    @Test
+    void shouldReturnStandardComputer() {
+        //given
+        Computer standardComputer;
+
+        //when
+        ComputerStore computerStore = new ComputerStore();
+        standardComputer = computerStore.buildComputer(new StandardComputerBuilder());
 
         //then
         assertEquals(standardComputer.getBrand(), ComputerBrand.ASUS);

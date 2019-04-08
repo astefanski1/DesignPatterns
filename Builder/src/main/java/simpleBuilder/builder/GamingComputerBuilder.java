@@ -2,8 +2,16 @@ package simpleBuilder.builder;
 
 import simpleBuilder.Utils.ComputerBrand;
 import simpleBuilder.Utils.ComputerType;
+import simpleBuilder.model.Computer;
 
-public class GamingComputerBuilder extends ComputerBuilder {
+public class GamingComputerBuilder implements ComputerBuilder {
+
+    Computer computer;
+
+    public GamingComputerBuilder() {
+        this.computer = new Computer();
+        computer.setComputerType(ComputerType.OFFICE);
+    }
 
     @Override
     public void buildName() {
@@ -23,5 +31,10 @@ public class GamingComputerBuilder extends ComputerBuilder {
     @Override
     public void buildType() {
         computer.setComputerType(ComputerType.GAMING);
+    }
+
+    @Override
+    public Computer getComputer() {
+        return this.computer;
     }
 }

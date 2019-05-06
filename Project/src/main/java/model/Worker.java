@@ -1,36 +1,46 @@
 package model;
 
 import mediator.Mediator;
+import observer.Observer;
+import observer.WorkerNotification;
 import utils.WorkerType;
 
-public class Worker {
+public class Worker implements Observer {
     private String name;
     private Mediator mediator;
     private WorkerType workerType;
+    private Car lastCarServiced;
+    private WorkerNotification workerNotification;
 
-    public Worker(String name, Mediator mediator, WorkerType workerType) {
+    private static final String message = "Hi %s, new car to repair: \n%s";
+
+    public Worker(String name, Mediator mediator, WorkerType workerType, WorkerNotification workerNotification) {
         this.name = name;
         this.workerType = workerType;
         this.mediator = mediator;
+        this.workerNotification = workerNotification;
     }
 
-
-    public void sendMessage(String message) {
-        this.mediator.sendMessage("(" + name + ") " + message);
+    public Worker(String name, WorkerType workerType) {
+        this.name = name;
+        this.workerType = workerType;
     }
 
-    public void sendMessageAboutCar(Car car, String message) {
-        if (workerType.equals(WorkerType.SALES)) {
-            this.mediator.sendMessage("(" + name + ") " + "Car ready to fix problems: " + message + "\n" + car.getModel() + " (" + car.getId() + ")");
-            car.setDamaged(true);
-        } else if (workerType.equals(WorkerType.SERVICE)) {
-            this.mediator.sendMessage("(" + name + ") " + "Car ready to pick up" + "\n" + car.getModel() + " (" + car.getId() + ")");
-            car.setDamaged(false);
-        }
+    public String getName() {
+        return name;
+    }
 
+    public WorkerType getWorkerType() {
+        return workerType;
     }
 
     public void receiveMessage(String message) {
         System.out.println(message);
+    }
+
+    @Override
+    public void update() {
+        lastCarServiced = workerNotification.getCar();
+        System.out.println(String.format(message, name, lastCarServiced));
     }
 }

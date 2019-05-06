@@ -1,6 +1,7 @@
 package utils;
 
 import model.Car;
+import model.Customer;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -44,7 +45,7 @@ public class CarFactory {
                         .build());
     }
 
-    public Car getCarPrototype(String model) throws CloneNotSupportedException {
+    public Car getCarPrototype(String model) {
         return cars.get(model).clone();
     }
 }

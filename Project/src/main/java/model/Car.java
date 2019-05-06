@@ -8,9 +8,9 @@ public class Car extends AbstractCar implements Cloneable {
     private String model;
     private String engine;
     private String productionYear;
-    private double weigth;
+    private double weight;
     private double price;
-    private Integer numberOfSeats;
+    private int numberOfSeats;
     private boolean isDamaged;
     private String id;
     private Customer customer;
@@ -21,7 +21,7 @@ public class Car extends AbstractCar implements Cloneable {
         this.model = builder.model;
         this.engine = builder.engine;
         this.productionYear = builder.productionYear;
-        this.weigth = builder.weigth;
+        this.weight = builder.weigth;
         this.price = builder.price;
         this.numberOfSeats = builder.numberOfSeats;
         this.isDamaged = builder.isDamaged;
@@ -29,7 +29,7 @@ public class Car extends AbstractCar implements Cloneable {
     }
 
     @Override
-    public Car clone() throws CloneNotSupportedException {
+    public Car clone() {
         try {
             return (Car) super.clone();
         } catch (CloneNotSupportedException e) {
@@ -51,6 +51,34 @@ public class Car extends AbstractCar implements Cloneable {
         return id;
     }
 
+    public String getEngine() {
+        return engine;
+    }
+
+    public double getWeight() {
+        return weight;
+    }
+
+    public Customer getCustomer() {
+        return customer;
+    }
+
+    public int getNumberOfSeats() {
+        return numberOfSeats;
+    }
+
+    public String getProductionYear() {
+        return productionYear;
+    }
+
+    public CarBrand getBrand() {
+        return brand;
+    }
+
+    public void setId(String id) {
+        this.id = id;
+    }
+
     public void setDamaged(boolean damaged) {
         isDamaged = damaged;
     }
@@ -63,7 +91,7 @@ public class Car extends AbstractCar implements Cloneable {
         private String productionYear;
         private double weigth;
         private double price;
-        private Integer numberOfSeats;
+        private int numberOfSeats;
         private boolean isDamaged;
         private Customer customer;
 
@@ -102,7 +130,7 @@ public class Car extends AbstractCar implements Cloneable {
             return this;
         }
 
-        public Builder numberOfSeats(Integer numberOfSeats) {
+        public Builder numberOfSeats(int numberOfSeats) {
             this.numberOfSeats = numberOfSeats;
             return this;
         }
@@ -134,9 +162,8 @@ public class Car extends AbstractCar implements Cloneable {
                 "Model: " + model + "\n" +
                 "Engine: " + engine + "\n" +
                 "Production years: " + productionYear + "\n" +
-                "Weigth: " + weigth + " kg\n" +
+                "Weigth: " + weight + " kg\n" +
                 "Number of seats: " + numberOfSeats + " kg\n" +
-                "Is damaged: " + isDamaged + "\n" +
-                "Customer: " + (customer.getName() == null ? customer.getName() : "None") + "\n";
+                "Is damaged: " + isDamaged + "\n";
     }
 }
